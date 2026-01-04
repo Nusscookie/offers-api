@@ -4,6 +4,10 @@ const port = process.env.PORT || 3000;
 const { search: marktSearch } = require('marktguru');
 
 app.use(express.json());
+app.use((req, res, next) => {
+  console.log('INCOMING', req.method, req.originalUrl);
+  next();
+});
 
 app.post('/offers/:search', async (req, res) => {
     const { limit = "1000", offset = "0", allowedRetailers = [], zipCode = "10115" } = req.body || {};
