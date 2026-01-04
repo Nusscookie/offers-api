@@ -21,11 +21,14 @@ app.post('/offers/:search', async (req, res) => {
         const offers = await searchOffers(searchTerm, limitInt, offsetInt, retailersOption, zipCodeStr);
         // if search returned an Error-like value, treat as failure
         if (offers && offers.isAxiosError) {
+            console.error("Error during search:", offers.toString());
             return res.status(500).send({ message: "Error retrieving offers", error: offers.toString() });
         }
+        console.log(`Retrieved ${offers.length} offers for search term "${searchTerm}"`);
         return res.send({ message: "Offers retrieved successfully", data: offers });
 
     } catch (error) {
+        console.error("Unexpected error during search:", error.toString());
         return res.status(500).send({ message: "Error retrieving offers", error: error.toString() });
     }
 });
