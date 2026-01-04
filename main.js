@@ -37,6 +37,8 @@ app.post('/offers/:search', async (req, res) => {
     }
 });
 
+app.get('/health', (req, res) => res.send('ok'));
+
 async function searchOffers(searchTerm, limit, offset, allowedRetailers, zipCode) {
     try {
         const offers = await marktSearch(searchTerm, { limit: limit, offset: offset, allowedRetailers: allowedRetailers, zipCode: zipCode });
